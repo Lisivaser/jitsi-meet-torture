@@ -219,4 +219,5 @@ mvn \
 -Djitsi-meet.instance.url=$MALLEUS_INSTANCE_URL \
 -Djitsi-meet.isRemote=true \
 -Dchrome.disable.nosanbox=true \
+-Dchrome.ignore.certificate.errors=false \
 test

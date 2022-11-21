@@ -248,6 +248,11 @@ public class WebParticipantFactory
                 ops.addArguments("disable-setuid-sandbox");
             }
 
+            if (options.isChromeIgnoreCertificate())
+            {
+                ops.addArguments("ignore-certificate-errors");
+            }
+
             if (options.isHeadless())
             {
                 ops.addArguments("headless");

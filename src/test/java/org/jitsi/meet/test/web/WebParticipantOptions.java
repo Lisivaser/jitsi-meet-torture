@@ -33,6 +33,12 @@ public class WebParticipantOptions
         = Boolean.TRUE.toString();
 
     /**
+     * The default value for {@link #PROP_CHROME_IGNORE_CERTIFICATE}.
+     */
+    private static final String DEFAULT_CHROME_IGNORE_CERTIFICATE
+            = Boolean.FALSE.toString();
+
+    /**
      * The default address used to connect remote selenium drivers.
      * ...wait it's the localhost ?
      */
@@ -106,6 +112,23 @@ public class WebParticipantOptions
         = "chrome.disable.sandbox";
 
     /**
+     * The property to ignore certificate errors parameter for chrome.
+     *
+     * XXX There is a typo in 'ignore.certificate.errors', but it was like that before
+     * the property was moved from WebParticipantFactory (not really sure...).
+     */
+    @Deprecated
+    private static final String PROP_IGNORE_CERTIFICATE
+            = "chrome.ignore.certificate.errors";
+
+    /**
+     * The property to ignore certificate errors through the 'ignore-certificate-errors'
+     * argument passed to the driver.
+     */
+    private static final String PROP_CHROME_IGNORE_CERTIFICATE
+            = "chrome.ignore.certificate";
+
+    /**
      * The property to enable headless parameter.
      */
     private static final String PROP_ENABLE_HEADLESS = "enable.headless";
@@ -170,6 +193,8 @@ public class WebParticipantOptions
                 PROP_REMOTE_ADDRESS_NAME, DEFAULT_REMOTE_ADDRESS_NAME);
         defaults.setProperty(
                 PROP_CHROME_DISABLE_SANDBOX, DEFAULT_CHROME_DISABLE_SANDBOX);
+        defaults.setProperty(
+                PROP_CHROME_IGNORE_CERTIFICATE, DEFAULT_CHROME_IGNORE_CERTIFICATE);
         defaults.setProperty(PROP_SKIP_DISPLAYNAME, Boolean.FALSE.toString());
         defaults.setProperty(PROP_ALLOW_INSECURE_CERTS, Boolean.FALSE.toString());
         defaults.setProperty(PROP_LOADTEST, Boolean.FALSE.toString());
@@ -242,6 +267,24 @@ public class WebParticipantOptions
         else
         {
             return getBooleanProperty(PROP_CHROME_DISABLE_SANDBOX);
+        }
+    }
+
+    /**
+     * The getter for {@link #PROP_CHROME_DISABLE_SANDBOX}.
+     *
+     * @return <tt>true</tt> or <tt>false</tt>.
+     */
+    public boolean isChromeIgnoreCertificate()
+    {
+        // Go with the legacy option first
+        if (getProperty(PROP_IGNORE_CERTIFICATE) != null)
+        {
+            return !getBooleanProperty(PROP_IGNORE_CERTIFICATE);
+        }
+        else
+        {
+            return getBooleanProperty(PROP_CHROME_IGNORE_CERTIFICATE);
         }
     }
 
